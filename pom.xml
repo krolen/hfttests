@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>my</groupId>
+    <artifactId>ChronicleMap</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>Benchmarks</module>
+    </modules>
+
+    <!--<parent>-->
+    <!--<groupId>net.openhft</groupId>-->
+    <!--<artifactId>java-parent-pom</artifactId>-->
+    <!--<version>1.1.2</version>-->
+    <!--<relativePath/>-->
+    <!--</parent>-->
+
+    <dependencies>
+        <dependency>
+            <groupId>net.openhft</groupId>
+            <artifactId>chronicle-map</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        <dependency>
+           <groupId>ch.qos.logback</groupId>
+           <artifactId>logback-classic</artifactId>
+           <version>1.1.2</version>
+        </dependency>
+        <dependency>
+           <groupId>org.openjdk.jmh</groupId>
+           <artifactId>jmh-core</artifactId>
+           <version>1.1.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.openjdk.jmh</groupId>
+           <artifactId>jmh-generator-annprocess</artifactId>
+           <version>1.1.1</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>My Repo</id>
+            <name>My repo</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+</project>
