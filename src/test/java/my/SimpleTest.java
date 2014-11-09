@@ -19,7 +19,7 @@ public class SimpleTest {
 
         File file = Paths.get(tempDir, "SimpleTest").toFile();
         ChronicleMap<Integer, CharSequence> map = ChronicleMapBuilder.of(Integer.class, CharSequence.class).
-            file(file).entries(2).create();
+            file(file).entries(600_000).entrySize().create();
 
         long count = 1000;
         for (int i = 0; i < count; i++) {
