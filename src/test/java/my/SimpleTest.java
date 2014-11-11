@@ -1,7 +1,12 @@
 package my;
 
+import my.beans.SimpleBean;
 import net.openhft.chronicle.map.ChronicleMap;
 import net.openhft.chronicle.map.ChronicleMapBuilder;
+import net.openhft.lang.io.Bytes;
+import net.openhft.lang.io.serialization.BytesMarshaller;
+import net.openhft.lang.io.serialization.BytesMarshallerFactory;
+import net.openhft.lang.io.serialization.impl.VanillaBytesMarshallerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,17 +23,37 @@ public class SimpleTest {
         String tempDir = System.getProperty("java.io.tmpdir");
 
         File file = Paths.get(tempDir, "SimpleTest").toFile();
-        ChronicleMap<Integer, CharSequence> map = ChronicleMapBuilder.of(Integer.class, CharSequence.class).
-            file(file).entries(600_000).entrySize().create();
+        ChronicleMapBuilder builder = ChronicleMapBuilder.of(Long.class, SimpleBean.class).
+            file(file).entries(1_000_000_000).entrySize(50);
 
-        long count = 1000;
-        for (int i = 0; i < count; i++) {
-            map.put(i, String.valueOf(i));
+//        BytesMarshallerFactory factory = createBytesMarshallerFactory();
+//        builder.bytesMarshallerFactory(factory);
+        ChronicleMap<Long, SimpleBean> map = builder.create();
+
+        long count = 2;
+        for (long i = 0; i < count; i++) {
+            map.put(i, new SimpleBean(i));
         }
-        System.out.println(map.get(1000));
+        System.out.println(map.get(count - 1));
         System.out.println(map.longSize());
     }
 
+    private static BytesMarshallerFactory createBytesMarshallerFactory() {
+        VanillaBytesMarshallerFactory factory = new VanillaBytesMarshallerFactory();
+        factory.addMarshaller(SimpleBean.class, new BytesMarshaller<SimpleBean>() {
+
+            @Override
+            public void write(Bytes bytes, SimpleBean simpleBean) {
+                bytes.writeObject(simpleBean);
+            }
+
+            @Override
+            public SimpleBean read(Bytes bytes) {
+                return (SimpleBean) bytes.readObject();
+            }
+        });
+        return factory;
+    }
 
 
 }
