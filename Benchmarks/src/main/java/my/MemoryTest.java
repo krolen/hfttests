@@ -1,5 +1,7 @@
 package my;
 
+import my.beans.impl.SimpleBean;
+
 /**
  * @author kkulagin
  * @since 10.11.2014
@@ -16,10 +18,8 @@ public class MemoryTest {
         long objectSize = ObjectSizeFetcher.getObjectSize(builder.toString());
         System.out.println(objectSize);
 
-//        objectSize = ObjectSizeFetcher.getObjectSize(new SimpleBean("asdf fsaasf klj;ljksadf asdfs adfl kjasdf asdf;lkj;lkjdsaf asdf ;alskdjfasdfadsflkjasdfdsa  fdsfdsafdsaf" +
-//            "asdffdsafdsa dsafdsafdsaf asdfdasfdddddddddddf asdfads fasdfsadlkfjasd;lkifjweaiolfruweoifjdsklfnasd.,lk; fjhdaslfda/klf jdsalkfj as;dlfkijhdaslkfnmad,.adsf adsf" +
-//            "asdfsdaaaaaaaaaaaaaaaaaa dsaffffffffffffffffffffff dsfffffffffffffffffffffffffffffffffffffff"));
-//        System.out.println(objectSize);
+        objectSize = ObjectSizeFetcher.getObjectSize(new SimpleBean(5));
+        System.out.println(objectSize);
 
 
 

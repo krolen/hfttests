@@ -1,7 +1,7 @@
 package my;
 
 import gr.forth.ics.memorymeasurer.MemoryMeasurer;
-import my.beans.SimpleBean;
+import my.beans.impl.SimpleBean;
 
 /**
  * @author kkulagin
