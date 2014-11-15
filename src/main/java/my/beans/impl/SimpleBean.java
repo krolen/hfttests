@@ -1,5 +1,6 @@
 package my.beans.impl;
 
+import com.esotericsoftware.kryo.Kryo;
 import my.beans.ISimpleBean;
 
 import java.io.Externalizable;
@@ -12,13 +13,23 @@ import java.util.Arrays;
  * @author kkulagin
  * @since 09.11.2014
  */
-public class SimpleBean implements Externalizable, ISimpleBean {
+public class SimpleBean implements ISimpleBean, Externalizable {
+
+    private final ThreadLocal<Kryo> kryos = new ThreadLocal<Kryo>() {
+        protected Kryo initialValue() {
+            return new Kryo();
+        }
+    };
+
     private long id = 1;
     private long id2 = 1;
     private long id3 = 1;
     private int fieldOne = 1;
     private byte[] bytes = new byte[1000];
     private StringBuilder sb = new StringBuilder();
+
+    public SimpleBean() {
+    }
 
     public SimpleBean(long id) {
         this.id = id;
@@ -30,11 +41,13 @@ public class SimpleBean implements Externalizable, ISimpleBean {
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
+//        kryos.get().writeObject(new Output(out.), iSimpleBean);
+
         out.writeLong(id);
         out.writeLong(id2);
         out.writeLong(id3);
         out.writeInt(fieldOne);
-        out.write(bytes);
+//        out.write(bytes);
 //        out.writeUTF(stringField);
 //        out.writeUTF(stringField2);
     }
@@ -45,7 +58,7 @@ public class SimpleBean implements Externalizable, ISimpleBean {
         id2 = in.readLong();
         id3 = in.readLong();
         fieldOne = in.readInt();
-        in.read(bytes);
+//        in.read(bytes = new byte[1000]);
 //        stringField = in.readUTF();
 //        stringField2 = in.readUTF();
     }
@@ -89,6 +102,26 @@ public class SimpleBean implements Externalizable, ISimpleBean {
     @Override
     public void setFieldOne(int fieldOne) {
         this.fieldOne = fieldOne;
+    }
+
+    @Override
+    public byte[] getBytes() {
+        return bytes;
+    }
+
+    @Override
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
+    }
+
+    @Override
+    public StringBuilder getSb() {
+        return sb;
+    }
+
+    @Override
+    public void setSb(StringBuilder sb) {
+        this.sb = sb;
     }
 
     @Override

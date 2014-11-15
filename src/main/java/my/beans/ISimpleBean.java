@@ -5,21 +5,13 @@ package my.beans;
  * @since 12.11.2014
  */
 public interface ISimpleBean {
-    default byte[] getBytes() {
-        return bytes;
-    }
+    byte[] getBytes();
 
-    default void setBytes(byte[] bytes) {
-        this.bytes = bytes;
-    }
+    void setBytes(byte[] bytes);
 
-    default StringBuilder getSb() {
-        return sb;
-    }
+    StringBuilder getSb();
 
-    default void setSb(StringBuilder sb) {
-        this.sb = sb;
-    }
+    void setSb(StringBuilder sb);
 
     long getId();
 
