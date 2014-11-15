@@ -17,8 +17,39 @@ import java.nio.file.Paths;
 public class SimpleTest {
 
     public static void main(String[] args) throws IOException {
-        option2();
+        option3();
     }
+
+
+
+  private static void option3() throws IOException {
+    Path file = getFile();
+    Files.deleteIfExists(file);
+    int entries = 60_000_000;
+    int valueSize = 8 + 8 + 8 + 4;
+    try (ChronicleMap<Long, SimpleBean> map = ChronicleMapBuilder
+        .of(Long.class, SimpleBean.class)
+        .valueSize(valueSize)
+        .entries(entries)
+        .createPersistedTo(file.toFile())) {
+      long start = System.currentTimeMillis();
+      SimpleBean value = new SimpleBean();
+      for (long i = 0; i < entries; i += 2000000) {
+        System.out.printf("put %d keys%n", i);
+        for (long j = i; j < i + 2000000; j++) {
+          value.setId(j);
+          map.put(j, value);
+        }
+      }
+      long time = System.currentTimeMillis() - start;
+
+      for (long i = 0; i < entries; i = i + 1000000) {
+        System.out.println(map.get(i));
+      }
+      System.out.println(map.get(entries - 1L));
+      System.out.printf("Took %.1f second to write %,d entries%n", time / 1e3, map.longSize());
+    }
+  }
 
     private static void option2() throws IOException {
       Path file = getFile();
