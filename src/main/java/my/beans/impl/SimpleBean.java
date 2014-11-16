@@ -24,6 +24,10 @@ public class SimpleBean implements ISimpleBean, Externalizable {
     private long id = 1;
     private long id2 = 1;
     private long id3 = 1;
+    private long id4 = 1;
+    private long id5 = 1;
+    private long id6 = 1;
+    private long id7 = 1;
     private int fieldOne = 1;
     private byte[] bytes = new byte[1000];
     private StringBuilder sb = new StringBuilder();
@@ -46,6 +50,10 @@ public class SimpleBean implements ISimpleBean, Externalizable {
         out.writeLong(id);
         out.writeLong(id2);
         out.writeLong(id3);
+        out.writeLong(id4);
+        out.writeLong(id5);
+        out.writeLong(id6);
+        out.writeLong(id7);
         out.writeInt(fieldOne);
 //        out.write(bytes);
 //        out.writeUTF(stringField);
@@ -57,6 +65,10 @@ public class SimpleBean implements ISimpleBean, Externalizable {
         id = in.readLong();
         id2 = in.readLong();
         id3 = in.readLong();
+        id4 = in.readLong();
+        id5 = in.readLong();
+        id6 = in.readLong();
+        id7 = in.readLong();
         fieldOne = in.readInt();
 //        in.read(bytes = new byte[1000]);
 //        stringField = in.readUTF();
@@ -124,15 +136,52 @@ public class SimpleBean implements ISimpleBean, Externalizable {
         this.sb = sb;
     }
 
+    public long getId4() {
+        return id4;
+    }
+
+    public void setId4(long id4) {
+        this.id4 = id4;
+    }
+
+    public long getId6() {
+        return id6;
+    }
+
+    public void setId6(long id6) {
+        this.id6 = id6;
+    }
+
+    public long getId7() {
+        return id7;
+    }
+
+    public void setId7(long id7) {
+        this.id7 = id7;
+    }
+
+
+    public long getId5() {
+        return id5;
+    }
+
+    public void setId5(long id5) {
+        this.id5 = id5;
+    }
+
     @Override
     public String toString() {
         return "SimpleBean{" +
-            "id=" + id +
-            ", id2=" + id2 +
-            ", id3=" + id3 +
-            ", fieldOne=" + fieldOne +
-            ", bytes=" + Arrays.toString(bytes) +
-            ", sb=" + sb +
-            '}';
+                "id=" + id +
+                ", id2=" + id2 +
+                ", id3=" + id3 +
+                ", id4=" + id4 +
+                ", id5=" + id5 +
+                ", id6=" + id6 +
+                ", id7=" + id7 +
+                ", fieldOne=" + fieldOne +
+                ", bytes=" + Arrays.toString(bytes) +
+                ", sb=" + sb +
+                '}';
     }
 }
