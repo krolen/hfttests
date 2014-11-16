@@ -54,14 +54,22 @@ public class SimpleTest {
             System.out.printf("Took %.1f second to write %,d entries%n", time / 1e3, map.longSize());
 
             long count = 0;
-            int attempts = 1000;
+            int attempts = 500_000;
 
-            LongStream longStream = LongStream.generate(() -> current().nextLong(1, entries)).limit(attempts);
+//            LongStream longStream = LongStream.generate(() -> current().nextLong(1, entries)).limit(attempts);
+            LongStream longStream = LongStream.range(1, attempts);
             long[] longs = longStream.toArray();
+            System.out.println(longs.length);
             Stopwatch timer = Stopwatch.createStarted();
             Arrays.stream(longs).
                     parallel().
-                    forEach((i) -> map.get(i));
+                    forEach((i) -> {
+    if (i % 10_000 == 0) {
+        System.out.println(map.get(i));
+    } else {
+        map.get(i);
+    }
+});
             System.out.println("Reading time " + timer.stop().elapsed(TimeUnit.MILLISECONDS));
 
             for (long i = attempts * 1; i < attempts * 2; i++) {
